@@ -39,6 +39,9 @@ struct radioRXC {
   uint8_t dataVR;
 };
 
+
+extern uint32_t tdump[200];
+
 #ifdef __cplusplus
 extern "C" {
 #endif

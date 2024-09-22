@@ -33,7 +33,9 @@ uint16_t i = 0;
 
 // KEY for keeloq algoritm
 // must be same as transmiter key, 64bit LSB-first
-uint8_t key[] = { 0x56, 0x4a, 0xbc, 0x07, 0x57, 0x1e, 0x62, 0x94 };
+// uint8_t key[] = { 0x56, 0x4a, 0xbc, 0x07, 0x57, 0x1e, 0x62, 0x94 };
+uint8_t key[] = { 0xf8,0x75,0xdc,0x74,0xa6,0xbf,0x6e,0x85};
+
 
 // some useful structher for bitfildes
 struct hcsFixed hcs_fix;
@@ -61,6 +63,14 @@ void loop() {
   if (radio_rx_data_is_ready(&radio)) {
     // LED indikator
     blink();
+
+    for(i=0;i<200;i++)
+    {
+      Serial.print(tdump[i]);
+      Serial.print(" ");
+      if(i%41==0) Serial.println(" ");
+    }
+    Serial.println(" ");
 
     // the received data (fix,encripted,vr) stored in [radio.dataF,radio.dataE,radio.dataVR] and ready for reading by the software.
     // using hcs301.h we can format and read bit by bitfilds [hcs_fix,hcs_enc].

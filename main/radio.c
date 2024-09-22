@@ -3,6 +3,8 @@
 struct radioRXC radio;
 struct pulseFilter f1 = { .pulselength = 400, .err = 100 };
 
+uint32_t tdump[200];
+
 void radio_init(struct radioRXC *obj) {
 
   pinMode(RADIO_SIGNAL_PIN, INPUT_PULLUP);
@@ -124,9 +126,13 @@ uint32_t flip32(uint32_t Data) {
 void RADIO_SIGNAL_PIN_handler() {
   static uint32_t tempt = 0, oldt = 0, dift = 0;
   static struct oneBit tempb;
+  static int i=0;
 
   tempt = micros();
   dift = tempt - oldt;
+
+  tdump[i++]=dift;
+  if(i>=200)i=0;
 
   // Remove fast noise
   if (dift > 100) {
